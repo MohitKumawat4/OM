@@ -10,27 +10,10 @@ import ServicesStackSection from '@/components/home/ServicesStackSection';
 import FinalCtaSection from '@/components/home/FinalCtaSection';
 import './storefront.css';
 
-// Server Action to update the preview poster with the exact pixel-perfect Three.js canvas render
-async function syncPosterAction(dataUrl: string) {
-  'use server';
-  if (process.env.NODE_ENV === 'production') return;
-  try {
-    const base64 = dataUrl.replace(/^data:image\/\w+;base64,/, '');
-    const buffer = Buffer.from(base64, 'base64');
-    const fs = await import('node:fs/promises');
-    const path = await import('node:path');
-    const posterPath = path.join(process.cwd(), 'public/images/showroom/storefront-poster.webp');
-    await fs.writeFile(posterPath, buffer);
-    console.log('[Storefront] Successfully updated storefront-poster.webp from live Three.js render');
-  } catch (error) {
-    console.error('[Storefront] Failed to synchronize poster:', error);
-  }
-}
-
 export default function HomePage() {
   return (
     <>
-      <StorefrontExperience onCapturePoster={syncPosterAction} />
+      <StorefrontExperience />
       <div className="home-continuation">
         {/* Horizontal Marquee Separation Ribbon between Hero and Portfolio */}
         <BrandStatementSection />
