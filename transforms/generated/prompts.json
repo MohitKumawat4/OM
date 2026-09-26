@@ -1,0 +1,215 @@
+{
+  "mode": "built-in image_gen",
+  "references": [
+    "/Users/mohitkumawat/Desktop/Programming/my/OM/transforms/WhatsApp Image 2026-09-19 at 12.42.53.jpeg",
+    "/Users/mohitkumawat/Desktop/Programming/my/OM/transforms/WhatsApp Image 2026-09-19 at 12.47.50.jpeg"
+  ],
+  "base_prompt": "Use case: precise-object-edit. Asset type: client-facing architectural facade renovation concept by OM Advertising.\nInput image 1 is the EDIT TARGET and governs the actual building geometry and camera. Input image 2 supplies ONLY the exact GRAND ARCADE name and outlined gold G monogram, not its architecture.\nCreate one photorealistic finished exterior transformation of the actual building in image 1. Preserve its broad low-rise footprint, existing central wide entrance, left and right glazed bays, existing slab levels and separate set-back upper-right rooftop room, tank and tower. Preserve the real frontal viewpoint and recognizable asymmetrical massing. Refinish existing surfaces; don't invent new floors, widen the building, replace it with reference 2, or create large structural arches. Use realistic facade-mounted signage, modular ACP panel cladding with joints, decorative exterior-rated panels and restrained LED lighting. Remove construction debris, people and the phone-camera white metadata strip; complete a modest clean paved forecourt within the existing site. Existing openings can receive dark framed glass and subtle interior light, but remain in the same positions. Keep local surroundings believable, no luxurious unrelated landscape or cars.\nBranding: render the exact readable text \"GRAND ARCADE\" and the single outlined G emblem from image 2 in a balanced fascia composition. No invented slogans or contact information. Excellent polished architectural visualization, crisp materials, realistic scale and shadows, full facade in frame, landscape aspect ratio. Small discreet lower-left caption \"ILLUSTRATIVE FACADE CONCEPT\". One image only, no collage.\nDesign direction: ",
+  "concepts": [
+    {
+      "number": 1,
+      "filename": "01-charcoal-champagne.png",
+      "title": "Charcoal and champagne signature",
+      "direction": "Matte charcoal ACP broad central portal; thin champagne-gold reveals; warm wood-look narrow vertical panels on side walls; centered gold halo-lit name with outlined G above. Upper-right room warm light grey. 3000K concealed lines under slabs. Late-afternoon daylight."
+    },
+    {
+      "number": 2,
+      "filename": "02-ivory-bronze.png",
+      "title": "Ivory and bronze",
+      "direction": "Warm ivory satin ACP central portal and side fascia, bronze panel reveals and door frames, centered bronze dimensional letters and outlined G with warm halos; pale oak-look soffit. Soft morning daylight. Airy refined showroom."
+    },
+    {
+      "number": 3,
+      "filename": "03-walnut-graphite.png",
+      "title": "Walnut and graphite",
+      "direction": "Rich walnut-look exterior composite panels on the central portal with dark graphite ACP perimeter and side fascia. Gold outlined G and warm white dimensional name across walnut central fascia. Narrow vertical wood grain, concealed amber under-slab lights. Golden hour."
+    },
+    {
+      "number": 4,
+      "filename": "04-sandstone-look.png",
+      "title": "Sandstone warmth",
+      "direction": "Sandstone-look textured architectural facade panels around original entrance, flat champagne ACP band at top with dark bronze dimensional name and G, warm greige sides, subtle recessed wall washers. Contemporary Rajasthan-inspired warmth without ornate arches. Clear daylight."
+    },
+    {
+      "number": 5,
+      "filename": "05-black-copper.png",
+      "title": "Black and copper",
+      "direction": "Satin black ACP central portal with broad copper-finish vertical accent strips at outer edges, floating copper letters and G with warm halos, graphite upper-right room. Dusk blue sky; controlled lighting, realistic no excessive bloom."
+    },
+    {
+      "number": 6,
+      "filename": "06-pearl-silver.png",
+      "title": "Pearl and silver",
+      "direction": "Pearl-white ACP with fine silver joints, brushed aluminum outlined G and readable graphite face-lit dimensional name, clean light-grey upper room, slim black window frames, cool-neutral restrained lighting. Bright daylight."
+    },
+    {
+      "number": 7,
+      "filename": "07-olive-oak.png",
+      "title": "Olive and oak",
+      "direction": "Muted deep olive ACP central entrance surround with oak-look side column panels and dark bronze window trim. Champagne outlined G and name. Ivory upper-right room. Warm late-afternoon natural light. Restrained earthy facade."
+    },
+    {
+      "number": 8,
+      "filename": "08-fluted-bronze.png",
+      "title": "Fluted bronze portal",
+      "direction": "Central portal face clad in slim vertically ribbed bronze-finish external panels, smooth charcoal horizontal signage plaque over the existing entrance, large warm gold G and name. Side walls warm grey. Early evening, carefully controlled gold light."
+    },
+    {
+      "number": 9,
+      "filename": "09-stone-graphite.png",
+      "title": "Pale stone and graphite",
+      "direction": "Pale limestone-look modular panels on original central portal with a graphite horizontal signage fascia, raised champagne G and name, graphite side slabs and restrained light lines. Warm-white upper room. Morning sun."
+    },
+    {
+      "number": 10,
+      "filename": "10-terracotta.png",
+      "title": "Terracotta modern",
+      "direction": "Muted terracotta-finish ACP portal and ivory side walls, bronze narrow shadow-gap grid, gold outlined G and dimensional cream letters, wood-look soffit. Modest clean forecourt, warm daylight, contemporary desert palette."
+    },
+    {
+      "number": 11,
+      "filename": "11-champagne-monolith.png",
+      "title": "Champagne metal",
+      "direction": "Champagne metallic ACP across central portal in large realistic cassettes with fine dark joints; black raised lettering and outlined G with subtle warm halo. Charcoal side fascias, warm light-grey upper room. Late afternoon, softly brushed reflective metal, no mirror finish."
+    },
+    {
+      "number": 12,
+      "filename": "12-cream-chocolate.png",
+      "title": "Cream and chocolate",
+      "direction": "Cream ACP main portal, chocolate-brown side slab wraps and entrance recess, walnut-look ceiling, bronze G and raised name on centered dark brown fascia inset. Side bays preserved and clear. Soft late-afternoon light."
+    },
+    {
+      "number": 13,
+      "filename": "13-jali-accents.png",
+      "title": "Contemporary jali accents",
+      "direction": "Charcoal ACP main facade, slim bronze perforated geometric jali panels only over solid piers at either side of central entrance, backlit gently. Do not cover window or doorway openings. Gold G and name, warm ivory upper room. Blue hour."
+    },
+    {
+      "number": 14,
+      "filename": "14-horizontal-wood.png",
+      "title": "Horizontal timber rhythm",
+      "direction": "Horizontal wood-look exterior composite cladding strips across central fascia and matching side solid walls; black ACP entrance jambs and thin black fascia bands. Satin gold G and name. Minimal warm under-slab light, daylight."
+    },
+    {
+      "number": 15,
+      "filename": "15-greige-minimal.png",
+      "title": "Greige minimal",
+      "direction": "Restrained greige ACP central portal with narrow black shadow gaps, a single thin bronze frame around existing entrance, compact gold G above generously spaced dark bronze GRAND ARCADE. Side walls off-white, upper room greige. Soft overcast daylight."
+    },
+    {
+      "number": 16,
+      "filename": "16-white-gold-evening.png",
+      "title": "White and gold evening",
+      "direction": "Ivory white ACP portal and upper room, brushed gold thin edge trims, illuminated gold outlined G and warm white halo-lit name; black glazed frames. Warm soffit downlights and fine linear gold glows. Blue-hour sky, inviting restrained showroom interior."
+    },
+    {
+      "number": 17,
+      "filename": "17-double-frame.png",
+      "title": "Nested entrance frames",
+      "direction": "Retain existing central entrance; wrap its existing piers and lintel with two shallow nested rectangular ACP facade frames, outer charcoal inner champagne with a narrow warm LED reveal between them. Gold G and name centered above entrance. Sides grey with walnut accents. Daylight."
+    },
+    {
+      "number": 18,
+      "filename": "18-slate-oak.png",
+      "title": "Slate and oak",
+      "direction": "Slate-blue-grey ACP central portal, light oak-look vertical strips around original side solid piers, champagne G and lettering, charcoal side fascia and white upper room. Soft evening light. Sophisticated muted blue, no neon."
+    },
+    {
+      "number": 19,
+      "filename": "19-bronze-ribbon.png",
+      "title": "Bronze fascia ribbon",
+      "direction": "Smooth warm-grey central portal with a continuous shallow bronze ACP fascia ribbon at the existing horizontal slab level linking left and right wings. Centered gold G and name above central entrance, walnut soffit. Warm natural late afternoon. Preserve asymmetry."
+    },
+    {
+      "number": 20,
+      "filename": "20-black-white.png",
+      "title": "Black and white",
+      "direction": "High contrast ivory facade with a crisp matte black central portal and black side bands. Simple illuminated white GRAND ARCADE and gold outlined G on black fascia, no extra textures, neat modular joints. Clear daytime photographic presentation."
+    },
+    {
+      "number": 21,
+      "filename": "21-walnut-ivory.png",
+      "title": "Walnut and ivory",
+      "direction": "Warm ivory entrance portal with a walnut-look horizontal signage inset carrying champagne G and raised name; walnut-look slim vertical outer piers, bronze glazing trim, light ivory upper room. Soft morning sunshine, approachable boutique showroom."
+    },
+    {
+      "number": 22,
+      "filename": "22-copper-greige.png",
+      "title": "Copper and greige",
+      "direction": "Warm greige ACP central portal with brushed copper signage panel across existing lintel, dark bronze dimensional G and name, slim copper pilaster caps, neutral side facade. Early evening with subtle warm downlights."
+    },
+    {
+      "number": 23,
+      "filename": "23-charcoal-light-lines.png",
+      "title": "Charcoal precision lighting",
+      "direction": "Dark charcoal ACP main portal, medium grey side walls, thin warm white LED lines precisely following only existing portal edges and slab soffits. Large warm gold G and name. Twilight; building materials remain legible, no excessive glow or rainbow lighting."
+    },
+    {
+      "number": 24,
+      "filename": "24-burgundy-champagne.png",
+      "title": "Burgundy and champagne",
+      "direction": "Deep muted burgundy ACP central portal contrasted with champagne-gold narrow jamb edges and ivory side walls. Gold outlined G and raised name. Dark bronze glazing. Warm daylight, premium hospitality-like identity without changing original structure."
+    },
+    {
+      "number": 25,
+      "filename": "25-taupe-texture.png",
+      "title": "Taupe textured panels",
+      "direction": "Warm taupe subtle stone-texture facade panels central portal; matte bronze large signage letters and G; thin dark brown slab wraps, ribbed oak-look accents on side solid columns. Warm daylight, tactile natural-looking materials."
+    },
+    {
+      "number": 26,
+      "filename": "26-silver-graphite.png",
+      "title": "Silver and graphite",
+      "direction": "Brushed silver ACP around existing entrance with bold graphite recessed fascia for warm white name and gold outlined G; graphite side piers and matching upper-right room accents. Crisp daylight, technical elegant showroom appearance."
+    },
+    {
+      "number": 27,
+      "filename": "27-fine-gold-grid.png",
+      "title": "Fine gold panel grid",
+      "direction": "Matte charcoal central ACP portal with restrained thin champagne reveals defining an orderly large-panel grid; warm gold halo name and G, beige side walls, dark soffits. Golden-hour photograph; refined subtle metallic details without decorative clutter."
+    },
+    {
+      "number": 28,
+      "filename": "28-oak-bronze.png",
+      "title": "Oak and bronze",
+      "direction": "Light oak-look external slatted finish on existing solid portal surfaces, dark bronze smooth central name plaque and matching jamb trim. Gold outlined G above warm ivory dimensional name. Off-white side and upper room finish. Daylight."
+    },
+    {
+      "number": 29,
+      "filename": "29-graphite-printed-glass.png",
+      "title": "Graphite with glass branding",
+      "direction": "Graphite ACP central portal with gold name and G, ivory side walls, restrained frosted geometric border film at lower edges of existing side glass bays, no additional lettering and no full window occlusion. Warm interior panels visible. Soft dusk."
+    },
+    {
+      "number": 30,
+      "filename": "30-ivory-jali.png",
+      "title": "Ivory with champagne jali",
+      "direction": "Ivory modular ACP main portal with champagne perforated accent strips on existing solid side piers only, bronze outlined G and dimensional name centered above door. Warm subtle perforation backlighting, light oak soffit. Late afternoon, airy refined palette."
+    },
+    {
+      "number": 31,
+      "filename": "31-mocha-satin.png",
+      "title": "Mocha satin",
+      "direction": "Satin mocha-brown ACP central portal in broad panels with warm ivory narrow edge trim, champagne raised logo and name; cream side walls and matching upper room, bronze doorframes. Gentle blue-hour sky and warm interior light."
+    },
+    {
+      "number": 32,
+      "filename": "32-basalt-champagne.png",
+      "title": "Basalt and champagne",
+      "direction": "Dark basalt-look textured architectural panels on original central portal; a smooth champagne metallic signage fascia with dark dimensional outlined G and exact name. Light warm-grey side walls and bronze trim. Overcast daylight emphasizes texture."
+    },
+    {
+      "number": 33,
+      "filename": "33-light-greige-economy.png",
+      "title": "Simple greige refresh",
+      "direction": "Practical restrained transformation: painted light greige side walls and upper room, a compact charcoal ACP fascia panel over existing central entrance with gold acrylic 3D G and GRAND ARCADE, plain graphite ACP wraps on existing portal piers, a few discreet soffit lights. Avoid expensive full-wall feature treatments. Daylight."
+    },
+    {
+      "number": 34,
+      "filename": "34-gold-walnut-signature.png",
+      "title": "Gold and walnut signature",
+      "direction": "Champagne ACP original central portal, dark walnut-look entrance recess and side solid pier accents, a wide matte charcoal sign inset with gold outlined G and halo-lit GRAND ARCADE. Upper room warm ivory. Balanced subtle warm lighting and clear dusk sky. Polished final signature option."
+    }
+  ],
+  "first_image_exact_prompt": "Use case: precise-object-edit. Asset type: client-facing architectural facade renovation concept by OM Advertising.\nInput image 1 is the EDIT TARGET and governs the actual building geometry and camera. Input image 2 supplies ONLY the exact GRAND ARCADE name and outlined gold G monogram, not its architecture.\nCreate one photorealistic finished exterior transformation of the actual building in image 1. Preserve its broad low-rise footprint, existing central wide entrance, left and right glazed bays, existing slab levels and separate set-back upper-right rooftop room, tank and tower. Preserve the real frontal viewpoint and recognizable asymmetrical massing. Refinish existing surfaces; don't invent new floors, widen the building, replace it with reference 2, or create large structural arches. Use realistic facade-mounted signage, modular ACP panel cladding with joints, decorative exterior-rated panels and restrained LED lighting. Remove construction debris, people and the phone-camera white metadata strip; complete a modest clean paved forecourt within the existing site. Existing openings can receive dark framed glass and subtle interior light, but remain in the same positions. Keep local surroundings believable, no luxurious unrelated landscape or cars.\nBranding: render the exact readable text \"GRAND ARCADE\" and the single outlined G emblem from image 2 in a balanced fascia composition. No invented slogans or contact information. Excellent polished architectural visualization, crisp materials, realistic scale and shadows, full facade in frame, landscape aspect ratio. Small discreet lower-left caption \"ILLUSTRATIVE FACADE CONCEPT\". One image only, no collage.\nDesign direction: 01 — Charcoal and champagne signature. Matte charcoal ACP broad central portal; thin champagne-gold reveals; warm wood-look narrow vertical panels on the side walls; large centered gold halo-lit GRAND ARCADE with outlined G above on the existing central fascia. Coordinate upper-right room in warm light grey. Restrained 3000K concealed linear light under existing slabs. Late-afternoon daylight, lights gently visible. Premium but practical flat-panel construction."
+}

@@ -1,0 +1,27 @@
+{
+  "mode": "built-in image_gen",
+  "reference": "/Users/mohitkumawat/Desktop/Programming/my/OM/transforms/four-door-detailed/01-charcoal-ivory-ribbed-arch.png",
+  "base_prompt": "Use case: precise-object-edit. Edit the provided GRAND ARCADE facade concept into one distinct premium material/design variant.\nLOCK EXACTLY FOUR ENTRANCE OPENINGS in the original positions and proportions: ONE small left doorway, ONE grand center doorway, TWO small right doorways. Keep the asymmetric building width, stepped roof, upper-right rooftop room, frontal camera, and central grand entrance. Never add a fifth doorway or make the left wing symmetric with the right. All four are walk-through glass entrance doors with obvious handles; REMOVE the low hedge strips immediately blocking side door thresholds and replace them with clear paving. Keep foreground corner planting only.\nCompletely redesign cladding, grand arch surround, signage background, lighting details and rooftop-room facade using the design below. User wants predominantly dark, richly detailed architectural materials, not flat painted surfaces or unchanged sandy walls. No retained ivory ribbed arch from source unless specifically requested. Show coherent modular fabrication: panel joints, textured metal, decorative composite panels, grooves and controlled warm light. Enough daylight to distinguish the chosen colors; realistic subdued metal reflections, no excessive gold bloom. Crisp architectural photo, whole facade visible, landscape, no collage.\nPreserve exact readable branding \"GRAND ARCADE\", no subtitle or other slogans. Retain small \"ILLUSTRATIVE FACADE CONCEPT\" caption. No people, vehicles or extra buildings.\nNEW DESIGN: ",
+  "concepts": [
+    {
+      "filename": "05-midnight-blue-pewter.png",
+      "title": "Midnight blue and pewter",
+      "direction": "Side walls in deep MIDNIGHT NAVY blue satin ACP with a distinctive horizontal stepped-shingle / overlapping cassette relief, narrow dark reveal joints; no brown or beige. Central tower dark ink-blue finely vertically grooved cladding. Main arch surround is a broad BRUSHED PEWTER / silver metal double-band assembly: outer faceted chamfer, inner narrow polished silver ring, softly illuminated separation gap; understated radial seam segments rather than ivory flutes. Small door surrounds silver-grey. Upper-right room has groups of slender SILVER vertical fins over navy perforated metal backing, staggered in depth, with clean dark border and subtle horizontal recessed light slot. Silver dimensional GRAND ARCADE lettering. Cool refined navy-silver palette with warm interior contrast. Bright late afternoon."
+    },
+    {
+      "filename": "06-forest-green-antique-brass.png",
+      "title": "Forest green and antique brass",
+      "direction": "Side wings dark FOREST GREEN ribbed exterior composite panels interrupted by antique-brass fine vertical pinstripes, subtle green clearly visible. Grand entrance framed in a wide antique-brass ARCH LATTICE: finely perforated abstract geometric metal panels over dark green backing forming a continuous arch band and jambs, gently backlit in a restrained way. Inner arch trim deep bronze. Central signage field deep bottle-green large panels with fine diagonal engraved grooves and gold raised text. Upper-right room features horizontal dark-green louvers and a CENTRAL PANEL of matching fine brass geometric perforation, exterior screen treatment entirely on solid walls. Warm oak-look soffits only as a narrow accent. Elegant botanical dark color scheme, natural afternoon, no sandy wall materials."
+    },
+    {
+      "filename": "07-onyx-silver-scalloped.png",
+      "title": "Onyx, silver and textured grey",
+      "direction": "Side wall cladding black ONYX-LOOK architectural panels with very fine subtle grey mineral veining, structured into long staggered vertical cassettes with black shadow gaps. Main arch surround in medium-light SMOKY GREY finely speckled composite, shaped as THREE DEEP RECESSED CONCENTRIC STEPS with narrow brushed stainless inlays; smooth substantial curved bands, NO radial ivory rib pattern. Signage field black metal with diamond-shaped shallow folded-panel relief. Roof room has alternating wide brushed graphite panels and paired thin stainless fins with a deep horizontal groove belt. Matching charcoal side arches with silver inner rims. Silver dimensional lettering, soft neutral-white architectural lighting, warm interiors. Daylight elegant monochrome dark theme with refined tactile depth."
+    },
+    {
+      "filename": "08-aubergine-rose-bronze.png",
+      "title": "Aubergine and rose bronze",
+      "direction": "Side wings deep AUBERGINE PLUM exterior panels with fine angular chevron grooves; central tower dark charcoal with narrow alternating vertical bands of smooth and micro-ribbed metal. Main arch surround is a bold stepped ART DECO fan design in brushed ROSE BRONZE: broad faceted radial wedge panels around the curve, strongly expressed THREE graduated concentric bronze reveals, straight tiered jambs, slim concealed warm inner line. Side door surrounds dark plum with restrained rose-bronze edge. Upper-right room treated with short overlapping HORIZONTAL plum slats in an offset brick pattern, grouped rose-bronze vertical accents only at its corners and an elegant charcoal cornice. Plum and pink-brown bronze must read distinctly, not maroon/red or gold. Golden afternoon ambient light, premium sophisticated contrasting textures."
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "mode": "built-in image_gen",
+  "reference": "Latest user-attached Grand Arcade arch elevation",
+  "base_prompt": "Use case: precise-object-edit. Create ONE premium photorealistic architectural facade concept by editing the latest user reference image (the low-rise GRAND ARCADE building with a grand central arch, smaller side arches and a taller set-back room on the right). Preserve that building's overall footprint, low-rise scale, asymmetrical massing, central entrance position and rooftop room. Full front elevation at eye level, whole building visible, landscape frame. This is a renovation concept for OM Advertising using ACP cladding, decorative architectural panels, dimensional signs and warm architectural lighting.\nCRITICAL USER CHANGE: replace ALL side display windows with genuine full-height walk-through glazed DOORS reaching the pavement, visible door leaf divisions, hinges and long pull handles. There must be multiple usable side doors on BOTH sides of main entrance. Use TWO narrower side entrance doorways on the left and TWO on the right, fitted into available side wings without widening the building, plus main central entrance. No sill walls or planters blocking doors. Arch tops can be fixed transoms above operable door leaves. Maintain clear access at all five entrances.\nBranding: exact readable text \"GRAND ARCADE\" in premium dimensional gold lettering above central entrance, with a small tasteful outlined G monogram if space permits. Remove the reference's subtitle; no other business claims or invented text. Small understated lower-left caption \"ILLUSTRATIVE FACADE CONCEPT\". Polished realistic materials with buildable panel seams, restrained lighting without excessive glow, simple paved forecourt and minimal planting at outer edges. No people or vehicles. One full image, no collage.\nVariation: ",
+  "concepts": [
+    {
+      "filename": "19-grand-arch-charcoal-travertine.png",
+      "direction": "A grand central semicircular arched double glass door with fine bronze radial fanlight mullions, paired with four narrower arched side doors. Matte charcoal ACP central tower and upper-right room, warm ivory travertine-look side panels, brushed bronze door frames. Thin champagne metal arch reveals, concealed 3000K lighting tracing central arch and slab edges. Elegant dusk photograph, realistic light interior."
+    },
+    {
+      "filename": "20-uniform-arches-ivory-bronze.png",
+      "direction": "Five matching round-arched double-door entrances across the front, all with same arch height, frame profile and style; central doorway only subtly wider, not monumental. Warm ivory stone-look panel facade with champagne ACP fascia, bronze door frames and restrained geometric fanlights, consistent vertical pilasters. Centered gold GRAND ARCADE above middle door. Soft late afternoon daylight, refined restrained warm sconces between arches. Preserve stepped rooftop room at right."
+    },
+    {
+      "filename": "21-grand-arch-walnut-champagne.png",
+      "direction": "One dramatically framed central tall elliptical arch entrance with double glass doors, four smaller semicircular arched glass side entrances, two on each side. Champagne-bronze ACP central surround, rich walnut-look exterior panel accent bands and pale cream stone-look walls. Slim bronze glass frames, minimal fanlight divisions, ribbed wood-look soffits. Warm concealed lighting follows the inside of the elliptical portal. Golden-hour natural light, boutique luxury."
+    },
+    {
+      "filename": "22-grand-gate-graphite-copper.png",
+      "direction": "One broad central softly rounded rectangular glass entrance portal with substantial double doors, flanked by four narrower softly rounded doorway portals, two each side, all operable doors. Matte graphite ACP central volume, brushed copper reveal around main gate, warm greige textured side panels, dark bronze door frames. Clean modern mullions without radial fan pattern; warm lighting integrated in deep portal recess and slab undersides. Blue-hour scene, elegant copper reflections without excessive orange glow."
+    }
+  ]
+}

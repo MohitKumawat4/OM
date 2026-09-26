@@ -1,0 +1,70 @@
+[
+  {
+    "at": 0,
+    "position": [
+      10,
+      3.7,
+      18
+    ],
+    "target": [
+      -2,
+      2.4,
+      -1
+    ],
+    "name": "wide",
+    "width": 1600,
+    "height": 1000,
+    "fov": 43
+  },
+  {
+    "at": 0.55,
+    "position": [
+      -0.3,
+      4.8,
+      6.6
+    ],
+    "target": [
+      0.2,
+      3.95,
+      0.4
+    ],
+    "name": "detail",
+    "width": 1600,
+    "height": 1000,
+    "fov": 43
+  },
+  {
+    "at": 1,
+    "position": [
+      -9,
+      4.2,
+      21
+    ],
+    "target": [
+      0.5,
+      2.7,
+      -0.4
+    ],
+    "name": "pullback",
+    "width": 1600,
+    "height": 1000,
+    "fov": 43
+  },
+  {
+    "at": 0,
+    "position": [
+      10,
+      3.7,
+      29
+    ],
+    "target": [
+      -2,
+      0.10000000000000009,
+      -1
+    ],
+    "name": "portrait",
+    "width": 780,
+    "height": 1688,
+    "fov": 52
+  }
+]

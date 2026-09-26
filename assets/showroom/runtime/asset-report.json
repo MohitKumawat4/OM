@@ -1,0 +1,23 @@
+{
+  "meshGroups": 37,
+  "triangles": 431519,
+  "bakedSurfaceGroups": 22,
+  "lightingAtlas": [
+    2048,
+    2048
+  ],
+  "diffuseRadianceScale": 2.3193116188049316,
+  "modelBytes": 9782084,
+  "roadNormal": [
+    1024,
+    1024
+  ],
+  "packagedBytes": 5842680,
+  "illuminationEncoding": "JPEG quality 90",
+  "geometryEncoding": "Draco",
+  "packagedRoadNormal": [
+    512,
+    512
+  ],
+  "textureCount": 8
+}

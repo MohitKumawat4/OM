@@ -1,0 +1,10 @@
+'use client';
+import { useEffect, useState } from 'react';
+import Link from 'next/link';
+import Image from 'next/image';
+import { ArrowUpRight } from 'lucide-react';
+import { experienceCopy, siteConfig } from '@/config/site';
+import PageHeading from '@/components/content/PageHeading';
+export default function ServicesClient(){const [category,setCategory]=useState('all');useEffect(()=>{const id=window.location.hash.slice(1);const frame=requestAnimationFrame(()=>{if(siteConfig.categories.some(c=>c.id===id))setCategory(id);});return()=>cancelAnimationFrame(frame);},[]);const services=siteConfig.coreServices.filter(s=>category==='all'||s.category===category);
+ return <div className="content-page"><PageHeading {...experienceCopy.pages.services}/><div className="filter-row" role="group" aria-label={experienceCopy.chooseService}><button aria-pressed={category==='all'} onClick={()=>setCategory('all')}>{experienceCopy.all}</button>{siteConfig.categories.map(cat=><button key={cat.id} aria-pressed={category===cat.id} onClick={()=>setCategory(cat.id)}>{cat.shortName}</button>)}</div><div className="service-grid">{services.map((item,i)=><article className="service-entry" key={item.id}><div className="service-entry-image"><Image src={item.image} alt={item.title} fill sizes="(max-width: 767px) 85vw, (max-width: 1500px) 45vw, 480px" className="object-cover"/><span>{String(i+1).padStart(2,'0')}</span></div><div className="service-entry-body"><p className="eyebrow">{siteConfig.categories.find(c=>c.id===item.category)?.shortName}</p><h2>{item.title}</h2><p>{item.description}</p><ul>{item.features.map(feature=><li key={feature}>{feature}</li>)}</ul><Link href={`/contact?service=${item.id}`} className="text-action">{experienceCopy.serviceQuote}<ArrowUpRight size={17}/></Link></div></article>)}</div><div className="page-closing"><h2>{experienceCopy.fullService}</h2><Link href="/contact" className="primary-action">{experienceCopy.pages.about.cta}<ArrowUpRight size={18}/></Link></div></div>;
+}

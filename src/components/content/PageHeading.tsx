@@ -1,0 +1,1 @@
+export default function PageHeading({eyebrow,title,description}:{eyebrow:string;title:string;description:string}){return <div className="page-heading"><p className="eyebrow">{eyebrow}</p><h1>{title.split('\n').map((line,i)=><span key={line} className={i?'gold-line':''}>{line}</span>)}</h1><p>{description}</p></div>}

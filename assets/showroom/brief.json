@@ -1,0 +1,75 @@
+{
+  "font": "/fonts/helvetiker_regular.typeface.json",
+  "brand": "YOUR BRAND",
+  "subline": "A SPACE TO MAKE YOUR OWN",
+  "windowLeft": "THOUGHTFULLY MADE",
+  "windowRight": "STEP INSIDE",
+  "direction": "ENTRANCE",
+  "interiorTitle": "MAKE ROOM",
+  "interiorSubtitle": "FOR SOMETHING EXTRAORDINARY",
+  "posterTop": "THE NEW",
+  "posterMiddle": "EDIT",
+  "posterBottom": "DISCOVER MORE",
+  "fallback": "/images/showroom/customer-space.webp",
+  "plant": "/Users/mohitkumawat/Desktop/Programming/my/OM/assets/showroom/source/plant/plant.gltf",
+  "environment": "/Users/mohitkumawat/Desktop/Programming/my/OM/assets/showroom/source/environment.hdr",
+  "fontFile": "/System/Library/Fonts/Supplemental/Arial.ttf",
+  "shots": [
+    {
+      "name": "exterior",
+      "position": [
+        11,
+        3.7,
+        18
+      ],
+      "target": [
+        -2,
+        2.4,
+        -1
+      ],
+      "lens": 35
+    },
+    {
+      "name": "entrance",
+      "position": [
+        -2,
+        2.4,
+        6
+      ],
+      "target": [
+        0,
+        2,
+        -2
+      ],
+      "lens": 25
+    },
+    {
+      "name": "interior",
+      "position": [
+        2.6,
+        1.8,
+        -3.8
+      ],
+      "target": [
+        0,
+        2,
+        -8
+      ],
+      "lens": 25
+    },
+    {
+      "name": "closing",
+      "position": [
+        -4.2,
+        2.4,
+        -6.2
+      ],
+      "target": [
+        0.2,
+        2.3,
+        0.5
+      ],
+      "lens": 25
+    }
+  ]
+}

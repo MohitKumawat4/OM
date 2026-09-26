@@ -1,0 +1,486 @@
+/* Scroll-driven sticky runway for Chapter 05: The Making Matters */
+.craft-track {
+  --smooth-progress: 0;
+  position: relative;
+  height: 260vh;
+  background: #FAF8F5;
+  color: #252822;
+  border-top: 1px solid rgba(140, 122, 107, 0.14);
+}
+
+/* Sticky stage: pins in viewport while scrolling through the 4 principles */
+.craft-sticky-stage {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  height: 100svh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: clamp(28px, 4.2vh, 48px) max(5vw, calc((100vw - 1440px) / 2));
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+/* ─────────────────────────────────────────────────────────────
+   TOP HEADER: Spans full width across top
+───────────────────────────────────────────────────────────── */
+.craft-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px;
+  padding-bottom: clamp(16px, 2.4vh, 24px);
+  border-bottom: 1px solid rgba(140, 122, 107, 0.12);
+}
+
+.craft-header-left .eyebrow {
+  color: #8C7A6B;
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  margin: 0 0 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.craft-main-title {
+  font-size: clamp(26px, 2.5vw, 42px);
+  font-weight: 400;
+  line-height: 1.15;
+  letter-spacing: -0.035em;
+  color: #1C1C1E;
+  margin: 0;
+}
+
+.craft-title-italic {
+  font-family: 'Fraunces', Georgia, serif;
+  font-style: italic;
+  font-weight: 400;
+  color: #1C1C1E;
+}
+
+.craft-header-right {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-shrink: 0;
+}
+
+.craft-about {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 18px;
+  color: #1C1C1E;
+  background: rgba(255, 255, 255, 0.7);
+  border: 1px solid rgba(140, 122, 107, 0.22);
+  border-radius: 999px;
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 500;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.craft-about svg { transition: transform 0.25s; }
+.craft-about:hover {
+  background: #1C1C1E;
+  color: #FAF8F5;
+  border-color: #1C1C1E;
+}
+.craft-about:hover svg {
+  transform: translate(2px, -2px);
+}
+
+/* ─────────────────────────────────────────────────────────────
+   TWO SECTIONS: Left (Story & Narrative) | Right (Media Showcase)
+───────────────────────────────────────────────────────────── */
+.craft-body {
+  display: grid;
+  grid-template-columns: 1fr 1.18fr;
+  align-items: center;
+  gap: clamp(32px, 5vw, 72px);
+  margin: auto 0;
+  min-width: 0;
+}
+
+/* SECTION 1: Narrative Stack */
+.craft-narrative-section {
+  min-width: 0;
+}
+
+.craft-story-stack {
+  position: relative;
+  min-height: 220px;
+}
+
+.craft-story-card {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  opacity: 0;
+  transform: translateY(16px);
+  pointer-events: none;
+  transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.craft-story-card[data-active="true"] {
+  position: relative;
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+.craft-story-counter {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 16px;
+}
+
+.craft-num-current {
+  font-size: 13px;
+  font-weight: 700;
+  color: #8C7A6B;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.04em;
+}
+
+.craft-num-divider {
+  font-size: 11px;
+  color: #C2BBB2;
+}
+
+.craft-num-total {
+  font-size: 12px;
+  color: #A8A5A0;
+  font-variant-numeric: tabular-nums;
+}
+
+.craft-story-tag {
+  display: inline-block;
+  margin-left: 10px;
+  padding: 3px 10px;
+  background: rgba(140, 122, 107, 0.1);
+  color: #7A6A5C;
+  border-radius: 999px;
+  font-size: 11.5px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+}
+
+.craft-story-title {
+  font-size: clamp(24px, 2.2vw, 34px);
+  line-height: 1.2;
+  font-weight: 500;
+  letter-spacing: -0.025em;
+  color: #1C1C1E;
+  margin: 0 0 16px;
+}
+
+.craft-story-description {
+  font-size: clamp(14.5px, 1.1vw, 16px);
+  line-height: 1.75;
+  color: #5F5B54;
+  margin: 0 0 20px;
+  max-width: 480px;
+}
+
+.craft-story-detail {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #8C7A6B;
+  font-size: 12.5px;
+  font-weight: 500;
+}
+
+.craft-detail-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #8C7A6B;
+  box-shadow: 0 0 8px rgba(140, 122, 107, 0.5);
+}
+
+/* SECTION 2: Media Showcase Exhibit */
+.craft-exhibit-section {
+  min-width: 0;
+}
+
+.craft-media-frame {
+  margin: 0;
+  min-width: 0;
+}
+
+.craft-image-stage {
+  height: clamp(260px, 32vh, 380px);
+  position: relative;
+  overflow: hidden;
+  border-radius: 18px;
+  background: #EAE4DA;
+  border: 1px solid rgba(140, 122, 107, 0.18);
+  box-shadow: 0 20px 48px -12px rgba(44, 38, 32, 0.12),
+              0 4px 12px rgba(44, 38, 32, 0.04);
+}
+
+.craft-photo {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transform: scale(1.04);
+  transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  pointer-events: none;
+}
+
+.craft-photo[data-active="true"] {
+  opacity: 1;
+  transform: scale(1);
+  z-index: 1;
+}
+
+.craft-photo img {
+  object-fit: cover;
+}
+
+.craft-media-caption {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 12px;
+  font-size: 12px;
+  color: #8C7A6B;
+  letter-spacing: 0.03em;
+}
+
+.craft-caption-pulse {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #8C7A6B;
+  opacity: 0.8;
+}
+
+/* ─────────────────────────────────────────────────────────────
+   BOTTOM: Smooth Continuous Progress Bar & Pointers
+───────────────────────────────────────────────────────────── */
+.craft-timeline {
+  position: relative;
+  margin-top: clamp(20px, 3vh, 36px);
+  padding-top: 6px;
+}
+
+/* Continuous smooth 2px track */
+.craft-timeline-track {
+  position: relative;
+  width: 100%;
+  height: 2px;
+  background: rgba(140, 122, 107, 0.16);
+  border-radius: 2px;
+  margin-bottom: 14px;
+}
+
+/* Real-time continuous progress fill */
+.craft-timeline-fill {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background: #8C7A6B;
+  transform-origin: left center;
+  transform: scaleX(var(--smooth-progress, 0));
+  border-radius: 2px;
+  box-shadow: 0 0 10px rgba(140, 122, 107, 0.45);
+}
+
+/* Real-time continuous sliding indicator thumb */
+.craft-timeline-thumb {
+  position: absolute;
+  top: 50%;
+  left: calc(var(--smooth-progress, 0) * 100%);
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: #8C7A6B;
+  border: 2px solid #FAF8F5;
+  box-shadow: 0 2px 6px rgba(140, 122, 107, 0.6);
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+
+/* 4 Interactive Pointer Buttons */
+.craft-timeline-pointers {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.craft-pointer-btn {
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 4px 8px 0;
+  background: transparent;
+  border: 0;
+  color: #8C7A6B;
+  opacity: 0.6;
+  font-size: 13.5px;
+  line-height: 1.4;
+  text-align: left;
+  cursor: pointer;
+  transition: color 0.25s, opacity 0.25s, transform 0.25s;
+}
+
+.craft-pointer-btn:hover {
+  opacity: 0.9;
+  color: #1C1C1E;
+}
+
+.craft-pointer-num {
+  font-size: 12px;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  opacity: 0.8;
+}
+
+.craft-pointer-label {
+  font-size: 13.5px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.craft-pointer-arrow {
+  margin-left: auto;
+  flex-shrink: 0;
+  opacity: 0;
+  transform: translate(-3px, 3px);
+  transition: opacity 0.25s, transform 0.25s;
+}
+
+.craft-pointer-btn[aria-selected="true"] {
+  color: #1C1C1E;
+  opacity: 1;
+  font-weight: 600;
+}
+
+.craft-pointer-btn[aria-selected="true"] .craft-pointer-arrow {
+  opacity: 1;
+  transform: none;
+}
+
+/* Focus visibility for accessibility */
+.craft-sticky-stage button:focus-visible,
+.craft-sticky-stage a:focus-visible {
+  outline: 2px solid #8C7A6B;
+  outline-offset: 4px;
+  border-radius: 4px;
+}
+
+/* ─────────────────────────────────────────────────────────────
+   RESPONSIVE DESIGN: Tablet & Mobile
+───────────────────────────────────────────────────────────── */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .craft-body {
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+  }
+  .craft-main-title {
+    font-size: 28px;
+  }
+  .craft-image-stage {
+    height: 240px;
+  }
+  .craft-pointer-label {
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 767px) {
+  .craft-track {
+    height: 240vh;
+  }
+  .craft-sticky-stage {
+    padding: 20px 20px 24px;
+    justify-content: space-around;
+  }
+  .craft-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+    padding-bottom: 12px;
+  }
+  .craft-main-title {
+    font-size: clamp(22px, 6vw, 28px);
+  }
+  .craft-header-right {
+    display: none;
+  }
+  .craft-body {
+    grid-template-columns: 1fr;
+    gap: 16px;
+    margin: 8px 0;
+  }
+  .craft-story-stack {
+    min-height: 120px;
+  }
+  .craft-story-title {
+    font-size: 18px;
+    margin-bottom: 8px;
+  }
+  .craft-story-description {
+    font-size: 13.5px;
+    line-height: 1.55;
+    margin-bottom: 8px;
+  }
+  .craft-story-detail {
+    display: none;
+  }
+  .craft-image-stage {
+    height: clamp(150px, 21vh, 180px);
+    border-radius: 14px;
+  }
+  .craft-timeline {
+    margin-top: 10px;
+  }
+  .craft-timeline-pointers {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 6px 12px;
+  }
+  .craft-pointer-btn {
+    padding: 4px 0;
+    font-size: 12px;
+  }
+  .craft-pointer-arrow {
+    display: none;
+  }
+}
+
+/* Reduced Motion Fallback */
+@media (prefers-reduced-motion: reduce) {
+  .craft-track {
+    height: auto;
+  }
+  .craft-sticky-stage {
+    position: relative;
+    height: auto;
+    padding: 48px max(5vw, calc((100vw - 1440px) / 2));
+  }
+  .craft-story-card,
+  .craft-photo,
+  .craft-pointer-btn,
+  .craft-pointer-arrow,
+  .craft-about {
+    transition: none !important;
+  }
+  .craft-timeline-fill,
+  .craft-timeline-thumb {
+    transition: none !important;
+  }
+}
+
