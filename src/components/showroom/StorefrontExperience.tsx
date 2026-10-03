@@ -9,6 +9,8 @@ import { clamp } from '@/lib/showroom/timeline';
 import type { StorefrontState } from './StorefrontCanvas';
 
 const Scene=dynamic(()=>import('./StorefrontCanvas'),{ssr:false});
+const FrameSequence=dynamic(()=>import('./FrameSequenceCanvas'),{ssr:false});
+const useFrames=config.frameSequence.enabled;
 const wake=()=>window.dispatchEvent(new Event('storefront-change'));
 class SceneBoundary extends Component<{children:React.ReactNode;onFailure:()=>void},{failed:boolean}>{
   state={failed:false};
@@ -27,15 +29,31 @@ export default function StorefrontExperience({ onCapturePoster }: StorefrontExpe
   const scene=useRef<StorefrontState>({progress:0,visible:true,ready:false,quality:'balanced',pointer:{x:0,y:0}});
   const [mode,setMode]=useState<'boot'|'live'|'still'>('boot');
   const [ready,setReady]=useState(false),[active,setActive]=useState(0),[category,setCategory]=useState(0),[service,setService]=useState(0);
+  const [loadProgress, setLoadProgress] = useState(0);
   const onReady=useCallback(()=>setReady(true),[]);
+  
+  useEffect(() => {
+    if (ready) {
+      setLoadProgress(100);
+      return;
+    }
+    // Start progressing immediately to avoid getting stuck at 0%
+    const interval = setInterval(() => {
+      setLoadProgress(prev => {
+        const step = (99 - prev) * 0.08;
+        return prev + Math.max(0.3, step);
+      });
+    }, 50);
+    return () => clearInterval(interval);
+  }, [mode, ready]);
   const onFailure=useCallback(()=>{
     setMode('still');
     // A rejected loader promise is cached too. Clear it so a later explicit
     // retry can recover after a temporary network or asset-loading failure.
-    void import('./StorefrontCanvas').then(module=>module.clearStorefrontCache()).catch(()=>undefined);
+    if(!useFrames)void import('./StorefrontCanvas').then(module=>module.clearStorefrontCache()).catch(()=>undefined);
   },[]);
   const enable=useCallback(()=>{
-    try{
+    if(!useFrames)try{
       // Safe WebGL2 capability detection without losing context
       const probe=document.createElement('canvas');
       const supported=!!(window.WebGL2RenderingContext && probe.getContext('webgl2'));
@@ -124,7 +142,7 @@ export default function StorefrontExperience({ onCapturePoster }: StorefrontExpe
   };
   useEffect(()=>{
     const element=stage.current;
-    if(!element||mode==='still'||!window.matchMedia('(hover: hover) and (pointer: fine)').matches)return;
+    if(!element||mode==='still'||useFrames||!window.matchMedia('(hover: hover) and (pointer: fine)').matches)return;
     let frame=0,x=0,y=0;
     const update=()=>{
       frame=0;
@@ -151,10 +169,42 @@ export default function StorefrontExperience({ onCapturePoster }: StorefrontExpe
     }}>{item.title}</button>)}</div><div role="tabpanel" id="sf-service-detail" aria-labelledby={`sf-tab-${service}`}><details key={selected.id}><summary>{config.serviceDetails}</summary><p>{selected.detail}</p></details><Link className="text-action" href={`/contact?service=${selected.id}`}>{tour.serviceCta}<ArrowUpRight size={15}/></Link></div></div>;
   };
   return <div ref={wrapper} className={`sf-journey ${mode==='still'?'sf-still':''}`}>
+    {/* Global Loader Overlay */}
+    <div 
+      className={`fixed inset-0 z-[100] flex flex-col items-center justify-center bg-[#0B0B0C] transition-all duration-700 ease-in-out
+        ${(!ready && mode !== 'still') ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}
+    >
+      <div className="flex flex-col items-center gap-8 w-64">
+        {/* Animated Rings/Circle */}
+        <div className="relative w-16 h-16 flex items-center justify-center">
+          <svg className="absolute inset-0 w-full h-full -rotate-90" viewBox="0 0 100 100">
+            <circle className="text-[#1D1D20] stroke-current" strokeWidth="2.5" cx="50" cy="50" r="46" fill="transparent" />
+            <circle 
+              className="text-[#D6A84F] stroke-current transition-all duration-200 ease-out" 
+              strokeWidth="2.5" 
+              strokeLinecap="round" 
+              cx="50" cy="50" r="46" 
+              fill="transparent" 
+              strokeDasharray="289"
+              strokeDashoffset={289 - (289 * Math.min(100, Math.round(loadProgress))) / 100}
+            />
+          </svg>
+          <div className="absolute text-[#F5F2EA] text-[10px] font-medium tracking-wider">
+            {Math.min(100, Math.round(loadProgress))}%
+          </div>
+        </div>
+        
+        {/* Brand Name */}
+        <div className="text-[#F5F2EA]/70 tracking-[0.3em] uppercase text-[9px] font-medium animate-pulse">
+          OM Advertising
+        </div>
+      </div>
+    </div>
+    
     <div ref={stage} className="sf-stage" data-ready={ready&&mode==='live'}>
       <div className="sf-visual" aria-hidden="true">
-        <picture><source media="(max-width: 767px) and (orientation: portrait)" srcSet={config.portraitPoster}/><Image src={config.poster} alt="" fill loading="eager" fetchPriority="high" sizes="100vw" className={`sf-poster ${ready&&mode==='live'?'sf-loaded':''}`}/></picture>
-        {mode==='live'&&<SceneBoundary onFailure={onFailure}><Scene state={scene} onReady={onReady} onFailure={onFailure} onCapture={onCapturePoster}/></SceneBoundary>}
+        <picture><source media="(max-width: 767px) and (orientation: portrait)" srcSet={useFrames?(config.frameSequence.portraitPoster??config.frameSequence.poster??config.portraitPoster):config.portraitPoster}/><Image src={useFrames?(config.frameSequence.poster??config.poster):config.poster} alt="" fill loading="eager" fetchPriority="high" sizes="100vw" className={`sf-poster ${ready&&mode==='live'?'sf-loaded':''}`}/></picture>
+        {mode==='live'&&<SceneBoundary onFailure={onFailure}>{useFrames?<FrameSequence state={scene} onReady={onReady} onFailure={onFailure}/>:<Scene state={scene} onReady={onReady} onFailure={onFailure} onCapture={onCapturePoster}/>}</SceneBoundary>}
       </div>
       <div className={`sf-shade sf-shade-${active}`}/>
       <div className="sf-caption"><span>{tour.eyebrow}</span><span>{config.label}</span></div>

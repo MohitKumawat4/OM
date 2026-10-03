@@ -421,6 +421,26 @@ export const experienceCopy = {
 };
 
 export const storefrontConfig = {
+  // Scroll-controlled frames extracted from the supplied 14.9-second WebP.
+  // See docs/hero-frame-sequence.md for replacement and tuning notes.
+  frameSequence: {
+    enabled: true,
+    desktop: {
+      directory: '/frames', prefix: 'frame_', extension: 'webp',
+      firstFrame: 1, frameCount: 240, padding: 4,
+    },
+    mobile: null,
+    poster: '/frames/frame_0001.webp',
+    portraitPoster: '/frames/frame_0001.webp',
+    // Tuned to support high-density sequences up to 30 FPS without scroll stutter
+    preloadRadius: 18,
+    concurrency: 6,
+    maxCachedFrames: 60,
+    desktopCacheBytes: 384 * 1024 * 1024,
+    mobileCacheBytes: 128 * 1024 * 1024,
+    maxCanvasPixels: 1920 * 1080,
+    maxDpr: 1.5,
+  } as import('@/lib/showroom/frame-sequence').FrameSequenceConfig,
   model:'/models/showroom/storefront.glb',
   decoder:'/draco/',
   poster:'/images/showroom/storefront-poster.webp',
