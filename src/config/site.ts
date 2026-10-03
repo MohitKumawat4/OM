@@ -429,9 +429,12 @@ export const storefrontConfig = {
       directory: '/frames', prefix: 'frame_', extension: 'webp',
       firstFrame: 1, frameCount: 240, padding: 4,
     },
-    mobile: null,
+    mobile: {
+      directory: '/frames-mobile', prefix: 'frame_', extension: 'webp',
+      firstFrame: 1, frameCount: 216, padding: 4,
+    },
     poster: '/frames/frame_0001.webp',
-    portraitPoster: '/frames/frame_0001.webp',
+    portraitPoster: '/frames-mobile/frame_0001.webp',
     // Tuned to support high-density sequences up to 30 FPS without scroll stutter
     preloadRadius: 18,
     concurrency: 6,
