@@ -60,7 +60,6 @@ export const siteConfig = {
   },
 
   navigation: [
-    { label: 'Home', href: '/' },
     { label: 'Services', href: '/services' },
     { label: 'Our Work', href: '/work' },
     { label: 'About Us', href: '/about' },
@@ -346,6 +345,32 @@ export const siteConfig = {
   },
 };
 
+export const portfolioSpotlights = [
+  { ...siteConfig.portfolio[0], shortTitle: 'Shri Mor Mukut', shortCategory: 'Storefront', shortDesc: 'Back-lit golden 3D acrylic letters with full ACP cladding.' },
+  { ...siteConfig.portfolio[1], shortTitle: 'Titanium Gold &', shortCategory: '3D Lettering', shortDesc: 'Sculptural ampersand with warm edge halo LED illumination.' },
+  { ...siteConfig.portfolio[2], shortTitle: 'Sunshine City', shortCategory: 'Gateway Arch', shortDesc: 'Large entrance archway with bronze & charcoal ACP cladding.' },
+  { ...siteConfig.portfolio[3], shortTitle: 'Shri Ji Nivas', shortCategory: 'Villa Signage', shortDesc: 'Warm back-lit golden 3D lettering on architectural facade.' },
+  { ...siteConfig.portfolio[4], shortTitle: 'Ashoka Enclave', shortCategory: 'Entrance Portal', shortDesc: 'Architectural gateway with teak woodgrain and charcoal panels.' },
+  { ...siteConfig.portfolio[5], shortTitle: 'Chomu Workshop', shortCategory: 'Fabrication Hub', shortDesc: 'In-house CNC precision machining and eco-solvent printing.' },
+];
+
+export const mobilePortfolioCopy = {
+  images: [
+    '/images/portfolio-mobile/p-1.webp',
+    '/images/portfolio-mobile/p-2.webp',
+    '/images/portfolio-mobile/p-3.webp',
+    '/images/portfolio-mobile/p-4.webp',
+    '/images/portfolio-mobile/p-5.webp',
+    '/images/portfolio-mobile/p-6.webp',
+  ],
+  collection: 'THE INSPIRATION FILES',
+  indexLabel: 'Choose a project',
+  prompt: 'Swipe or tap the photo to shuffle the stack.',
+  shuffle: 'Show next project',
+  note: 'Supplied design reference',
+  facilityNote: 'Our Chomu facility',
+};
+
 export const showroomConfig = {
   eyebrow: 'SPACES THAT SPEAK', concept: 'Illustrative customer space',
   intro: 'A name. A space. An unmistakable presence.', scroll: 'Scroll to step inside',
@@ -421,6 +446,26 @@ export const experienceCopy = {
 };
 
 export const storefrontConfig = {
+  mobileHero: {
+    // Keep in sync with the media rules in mobile-storefront.css.
+    media: '(max-width: 767px), (max-width: 1023px) and (max-height: 600px) and (pointer: coarse)',
+    image: '/frames/frame_0001.webp',
+    imageWidth: 1920,
+    imageHeight: 1080,
+    imageAlt: 'Illustrative customer storefront with illuminated YOUR BRAND lettering and a finished exterior.',
+    emptyImage: 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7',
+    eyebrow: 'YOUR SPACE. YOUR IDENTITY.',
+    headline: ['Make your brand', 'impossible', 'to miss.'],
+    supporting: ['Signage. Printing.', 'Complete Brand Visibility.'],
+    caption: 'Illustrative customer storefront',
+    discover: 'Discover the possibilities',
+    categoriesTitle: 'Your brand deserves\nto be seen.',
+    categoriesDescription: 'From the name above your door to the details within. One complete identity.',
+    servicesTitle: 'Explore what we create',
+    servicesLink: { label: 'View all services', href: '/services' },
+    primary: { label: 'Get a Quote', href: '/contact' },
+    secondary: { label: 'Explore Our Work', href: '/work' },
+  },
   // Scroll-controlled frames extracted from the supplied 14.9-second WebP.
   // See docs/hero-frame-sequence.md for replacement and tuning notes.
   frameSequence: {

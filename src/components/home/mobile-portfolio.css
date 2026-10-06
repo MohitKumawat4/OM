@@ -1,0 +1,64 @@
+.mp-showcase { display: none; }
+
+@media (max-width: 767px) {
+  .portfolio-preview.home-work { padding: 42px 24px 38px; }
+  .portfolio-preview .portfolio-preview-heading { text-align: left; padding: 0; margin: 0 0 26px; max-width: none; }
+  .portfolio-preview .portfolio-preview-heading h2 { font-size: clamp(35px, 9.4vw, 52px); line-height: 1.07; letter-spacing: -.035em; max-width: 13ch; margin: 12px 0 16px; }
+  .portfolio-preview .portfolio-preview-heading > div { display: none; }
+  .portfolio-preview .portfolio-preview-heading > p { margin: 0; max-width: 31ch; font-size: 12px; line-height: 1.65; }
+  .mp-showcase { display: block; }
+  .mp-collection-line { display: flex; justify-content: space-between; align-items: center; gap: 12px; border-top: 1px solid #d7d0c5; padding-top: 15px; color: #736457; font-size: 9px; letter-spacing: .14em; font-weight: 500; font-variant-numeric: tabular-nums; }
+  .mp-print-stack { display: grid; position: relative; isolation: isolate; margin: 28px 6px 0; touch-action: pan-y; }
+  .mp-print { grid-area: 1 / 1; position: relative; min-width: 0; margin: 0; padding: 9px 9px 0; background: #fffdf8; border: 1px solid #dcd5ca; border-radius: 3px; box-shadow: 0 9px 18px #342a1912; pointer-events: none; }
+  .mp-print[data-depth="0"] { z-index: 6; transform: none; pointer-events: auto; touch-action: pan-y; }
+  .mp-print[data-depth="1"] { z-index: 5; transform: translate(3px, -3px) rotate(2.2deg); }
+  .mp-print[data-depth="2"] { z-index: 4; transform: translate(-3px, 0) rotate(-3deg); }
+  .mp-print[data-depth="3"] { z-index: 3; transform: translate(2px, 3px) rotate(1.5deg); }
+  .mp-print[data-depth="4"] { z-index: 2; transform: translate(-2px, 4px) rotate(-2deg); }
+  .mp-print[data-depth="5"] { z-index: 1; transform: translate(3px, 5px) rotate(2deg); }
+  .mp-announcement { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; border: 0; }
+  .mp-photo { position: relative; display: block; width: 100%; aspect-ratio: 1 / 1.04; border: 0; padding: 0; background: #e3ded5; overflow: hidden; cursor: pointer; touch-action: pan-y; user-select: none; -webkit-user-select: none; }
+  .mp-photo-image { object-fit: cover; user-select: none; -webkit-user-drag: none; }
+  .mp-photo-crop { transform: scale(1.15); transform-origin: center top; }
+  .mp-photo-action { position: absolute; right: 12px; bottom: 12px; display: grid; place-items: center; height: 44px; width: 44px; border-radius: 50%; background: #fffdf8; color: #24201a; box-shadow: 0 2px 8px #0002; }
+  .mp-print-caption { display: flex; align-items: center; gap: 16px; padding: 19px 7px 20px; min-height: 102px; }
+  .mp-print-number { font-family: Georgia, 'Times New Roman', serif; font-size: 48px; line-height: 1; letter-spacing: -.06em; color: #b29b76; font-variant-numeric: tabular-nums; }
+  .mp-category { display: block; font-size: 9px; letter-spacing: .14em; text-transform: uppercase; color: #786951; margin-bottom: 4px; }
+  .mp-print-caption h3 { font-family: Georgia, 'Times New Roman', serif; font-size: clamp(19px, 5.2vw, 26px); line-height: 1.15; font-weight: 400; color: #28251f; margin: 0; letter-spacing: -.025em; }
+  .mp-print-caption p { margin: 5px 0 0; font-size: 9px; line-height: 1.4; color: #857b6e; }
+  .mp-index-heading { display: flex; align-items: center; justify-content: space-between; margin: 25px 0 10px; color: #75674f; }
+  .mp-index-heading p { margin: 0; font-size: 11px; }
+  .mp-index { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 14px; }
+  .mp-index button { display: flex; align-items: center; gap: 8px; min-height: 53px; border: 0; border-top: 1px solid #dcd5c9; padding: 8px 1px; background: transparent; color: #797065; text-align: left; font-size: 11px; line-height: 1.4; cursor: pointer; }
+  .mp-tab-number { font-size: 9px; color: #958877; font-variant-numeric: tabular-nums; }
+  .mp-index button > svg { flex-shrink: 0; margin-left: auto; opacity: 0; }
+  .mp-index button[aria-selected=true] { color: #26231d; border-top-color: #8e6d36; font-weight: 600; }
+  .mp-index button[aria-selected=true] > svg { opacity: 1; }
+  .mp-index button[aria-selected=true] .mp-tab-number { color: #8e6d36; }
+  .mp-showcase :is(button, a):focus-visible { outline: 2px solid #8e6d36; outline-offset: 4px; }
+  .portfolio-preview .portfolio-preview-footer { text-align: left; border-top: 1px solid #d7d0c5; padding-top: 18px; margin-top: 22px; }
+  .portfolio-preview .portfolio-preview-footer > a { display: flex; justify-content: space-between; min-height: 44px; }
+}
+
+@media (prefers-reduced-motion: no-preference) and (max-width: 767px) {
+  .mp-print { transition: transform .82s cubic-bezier(.22, 1, .36, 1); }
+  .mp-print-outgoing { animation: mp-send-to-back .82s both; }
+  .mp-print-incoming { animation: mp-bring-forward .82s both; }
+  /* Hide the layer-order handoff within the moving card's brief fade,
+     so two overlapping photos never exchange places in a single frame. */
+  @keyframes mp-send-to-back {
+    0% { z-index: 10; opacity: 1; transform: translate(0, 0) rotate(0) scale(1); animation-timing-function: cubic-bezier(.25, .7, .3, 1); }
+    28% { z-index: 10; opacity: 1; transform: translate(3%, -5%) rotate(-5deg) scale(.98); animation-timing-function: ease-in-out; }
+    48% { z-index: 10; opacity: 0; transform: translate(5%, -8%) rotate(-7deg) scale(.96); }
+    49% { z-index: 1; opacity: 0; transform: translate(5%, -8%) rotate(-7deg) scale(.96); animation-timing-function: cubic-bezier(.22, 1, .36, 1); }
+    75% { z-index: 1; opacity: 1; transform: translate(2%, -1%) rotate(3deg) scale(.99); animation-timing-function: ease-out; }
+    100% { z-index: 1; opacity: 1; transform: translate(3px, 5px) rotate(2deg) scale(1); }
+  }
+  @keyframes mp-bring-forward {
+    0% { transform: translate(3px, -3px) rotate(2.2deg); animation-timing-function: ease-in-out; }
+    42% { transform: translate(-2%, 1%) rotate(3deg) scale(.975); animation-timing-function: cubic-bezier(.22, 1, .36, 1); }
+    100% { transform: translate(0, 0) rotate(0) scale(1); }
+  }
+  .mp-photo-action { transition: transform .18s ease-out; }
+  .mp-photo:active .mp-photo-action { transform: scale(.9); }
+}

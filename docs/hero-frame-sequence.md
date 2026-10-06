@@ -1,5 +1,21 @@
 # Hero frame sequence handoff
 
+## Mobile hero
+
+Phones now use `MobileStorefrontHero.tsx` and `mobile-storefront.css`, with copy
+and image configuration in `storefrontConfig.mobileHero`. This is one static
+storefront image, a photographic hero, and a compact native service disclosure.
+The mobile hero uses normal document scrolling and has no animation loader,
+video, frame player, canvas, or scroll effects.
+
+CSS selects the mobile composition before hydration. The desktop renderer can
+only mount after the viewport is confirmed as desktop. The breakpoint includes
+widths up to 767px and touch devices up to 1023px wide / 600px tall, covering phone
+landscape. Keep that media query synchronized between config and CSS. Crossing
+the breakpoint mounts or unmounts the desktop experience automatically.
+
+The frame-sequence configuration below applies to the animated desktop hero.
+
 The supplied `public/final-ezgif.com-video-to-webp-converter.webp` is active in
 the hero. It contains 281 frames at 1280 × 720, approximately 18.9 FPS and 14.9
 seconds. Its composited frames are stored in `public/frames/hero/desktop/` and

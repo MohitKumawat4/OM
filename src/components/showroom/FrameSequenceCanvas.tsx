@@ -10,6 +10,43 @@ const mobileQuery = '(max-width: 767px)';
 // Compressed frames survive component remounts for the lifetime of the page.
 // The complete supplied sequence is about 16 MiB; decoded bitmaps remain bounded below.
 const compressedFrames = new Map<string, Blob>();
+const CACHE_NAME = 'om-frames-v1';
+
+/** Persistent disk cache using browser CacheStorage API — prevents redownloading frames on refresh */
+async function fetchFrameBlob(url: string, signal?: AbortSignal): Promise<Blob> {
+  // 1. Check in-memory Map first (instantaneous 0ms access)
+  const cached = compressedFrames.get(url);
+  if (cached) return cached;
+
+  // 2. Check persistent browser CacheStorage (survives page refresh and browser restart)
+  if (typeof window !== 'undefined' && 'caches' in window) {
+    try {
+      const cache = await caches.open(CACHE_NAME);
+      const match = await cache.match(url);
+      if (match) {
+        const blob = await match.blob();
+        compressedFrames.set(url, blob);
+        return blob;
+      }
+      // If not yet in cache, fetch and store a clone in CacheStorage
+      const res = await fetch(url, { signal });
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      void cache.put(url, res.clone()).catch(() => {});
+      const blob = await res.blob();
+      compressedFrames.set(url, blob);
+      return blob;
+    } catch {
+      // Fallback to direct network fetch on any cache error
+    }
+  }
+
+  // 3. Fallback direct fetch
+  const res = await fetch(url, { signal });
+  if (!res.ok) throw new Error(`HTTP ${res.status}`);
+  const blob = await res.blob();
+  compressedFrames.set(url, blob);
+  return blob;
+}
 
 const subscribe = (callback: () => void) => {
   const media = window.matchMedia(mobileQuery);
@@ -126,6 +163,8 @@ export default function FrameSequenceCanvas({ state, onReady, onFailure }: Props
     };
 
     const nextBackgroundFrame = () => {
+      // Prioritize critical visible frames; do not flood background fetches before the first frame is ready
+      if (!ready) return null;
       while (backgroundCursor < source.frameCount) {
         const index = backgroundCursor++;
         if (!compressedFrames.has(urlFor(index)) && !pendingFetches.has(index)
@@ -161,13 +200,9 @@ export default function FrameSequenceCanvas({ state, onReady, onFailure }: Props
         const requestedIndex = index;
         const controller = new AbortController();
         pendingFetches.set(requestedIndex, controller);
-        const timeout = window.setTimeout(() => controller.abort(), 12000);
-        void fetch(urlFor(requestedIndex), { signal: controller.signal }).then(response => {
-          if (!response.ok) throw new Error(`Frame response: ${response.status}`);
-          return response.blob();
-        }).then(blob => {
+        const timeout = window.setTimeout(() => controller.abort(), 8000);
+        void fetchFrameBlob(urlFor(requestedIndex), controller.signal).then(blob => {
           if (!disposed && !controller.signal.aborted) {
-            compressedFrames.set(urlFor(requestedIndex), blob);
             if (shouldDecode(requestedIndex)) queueDecode(requestedIndex,
               requestedIndex === Math.round(visualFrame < 0 ? target : visualFrame));
           }
@@ -202,7 +237,11 @@ export default function FrameSequenceCanvas({ state, onReady, onFailure }: Props
       if (!bitmap) return false;
       if (resized) {
         const { width, height } = canvas.getBoundingClientRect();
-        if (width <= 0 || height <= 0) return false;
+        if (width <= 0 || height <= 0) {
+          // If layout dimensions are not settled yet, schedule retry on next animation frame
+          schedule();
+          return false;
+        }
         const ratio = Math.min(window.devicePixelRatio || 1, config.maxDpr,
           Math.sqrt(config.maxCanvasPixels / (width * height)));
         canvas.width = Math.max(1, Math.floor(width * ratio));
@@ -215,7 +254,12 @@ export default function FrameSequenceCanvas({ state, onReady, onFailure }: Props
       canvas.dataset.frame = String(index);
       bitmaps.delete(index);
       bitmaps.set(index, bitmap);
-      if (!ready) { ready = true; onReady(); }
+      if (!ready) {
+        ready = true;
+        onReady();
+        // Kick off progressive background fetching now that initial view is visible
+        pumpFetches();
+      }
       trim();
       return true;
     };

@@ -6,91 +6,82 @@ import { useState, useEffect, useRef } from 'react';
 import { Menu, X, ArrowUpRight } from 'lucide-react';
 import { siteConfig, experienceCopy } from '@/config/site';
 
-/**
- * Calculates the scroll position threshold where the lower sections begin.
- * - On the homepage: activates when the viewport reaches .home-continuation (Transformation Section and below).
- * - On content pages: activates after scrolling past the top hero banner (>80px).
- */
-function getLowerSectionsThreshold(): number {
-  if (typeof window === 'undefined') return 80;
-  const continuation = document.querySelector('.home-continuation');
-  if (continuation) {
-    const rect = continuation.getBoundingClientRect();
-    const absoluteTop = rect.top + window.scrollY;
-    // Activate retraction once the continuation section approaches the viewport
-    return Math.max(80, absoluteTop - window.innerHeight * 0.35);
-  }
-  return 80;
-}
-
 export default function Navbar(){
   const path = usePathname();
   const [open, setOpen] = useState(false);
-  const [isRetracted, setIsRetracted] = useState(false);
-  const lastScrollYRef = useRef(0);
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [isLightSection, setIsLightSection] = useState(false);
 
-  // Adjust state during render when route changes (React 19 pattern to avoid cascading renders)
+  // Close mobile navigation drawer on route change
   const [prevPath, setPrevPath] = useState(path);
   if (prevPath !== path) {
     setPrevPath(path);
-    setIsRetracted(false);
     setOpen(false);
   }
 
-  // Handle scroll-based retraction over lower sections with reverse-scroll reveal
+  // Persistent header tracking:
+  // 1. Detect scroll position for compact frosted-glass treatment (> 24px)
+  // 2. On homepage, dynamically track if viewport has entered light continuation sections
+  //    (between .home-continuation and .om-cta-stage) and adapt header theme accordingly
+  // 3. On content pages (/services, /work, /about, /contact), always stay light theme
   useEffect(() => {
     let ticking = false;
-    lastScrollYRef.current = window.scrollY;
+
+    const updateHeaderState = () => {
+      const scrollY = window.scrollY;
+      setIsScrolled(scrollY > 24);
+
+      if (path !== '/') {
+        // Content pages are always warm light theme
+        setIsLightSection(true);
+        ticking = false;
+        return;
+      }
+
+      // Homepage dynamic theme detection:
+      // Hero (0 -> continuationTop): Dark theme
+      // Continuation (continuationTop -> ctaTop): Light theme
+      // Final CTA (ctaTop -> bottom): Dark theme
+      const continuation = document.querySelector('.home-continuation') as HTMLElement | null;
+      const cta = document.querySelector('.om-cta-stage') as HTMLElement | null;
+
+      if (!continuation) {
+        setIsLightSection(false);
+        ticking = false;
+        return;
+      }
+
+      const continuationTop = continuation.offsetTop;
+      const ctaTop = cta ? cta.offsetTop : Infinity;
+      const headerFocusY = scrollY + 45;
+
+      const overLightSection = headerFocusY >= continuationTop && headerFocusY < ctaTop;
+      setIsLightSection(overLightSection);
+      ticking = false;
+    };
 
     const onScroll = () => {
       if (!ticking) {
-        window.requestAnimationFrame(() => {
-          const currentScrollY = window.scrollY;
-          const lastScrollY = lastScrollYRef.current;
-          const delta = currentScrollY - lastScrollY;
-
-          // Guard against iOS rubber-band overscroll at the top
-          if (currentScrollY <= 0) {
-            setIsRetracted(false);
-            lastScrollYRef.current = 0;
-            ticking = false;
-            return;
-          }
-
-          const threshold = getLowerSectionsThreshold();
-
-          // Above lower sections (e.g. inside the 3D storefront hero), always keep navbar visible
-          if (currentScrollY < threshold) {
-            setIsRetracted(false);
-          } else if (Math.abs(delta) >= 8) {
-            // Over lower sections:
-            // - Scrolling down: retract navbar to maximize viewable canvas
-            // - Reverse scroll (scrolling up): reveal navbar immediately
-            if (delta > 0) {
-              setIsRetracted(true);
-            } else {
-              setIsRetracted(false);
-            }
-          }
-
-          lastScrollYRef.current = currentScrollY;
-          ticking = false;
-        });
+        window.requestAnimationFrame(updateHeaderState);
         ticking = true;
       }
     };
 
     window.addEventListener('scroll', onScroll, { passive: true });
-    return () => window.removeEventListener('scroll', onScroll);
+    window.addEventListener('resize', onScroll);
+    updateHeaderState();
+
+    return () => {
+      window.removeEventListener('scroll', onScroll);
+      window.removeEventListener('resize', onScroll);
+    };
   }, [path]);
 
-  // Ensure header is never retracted when the mobile menu is open
-  const isHeaderRetracted = isRetracted && !open;
+  const showLightTheme = path !== '/' || isLightSection;
 
   return (
     <header
-      className={`site-header ${isHeaderRetracted ? 'is-retracted' : ''}`}
-      onFocusCapture={() => setIsRetracted(false)}
+      className={`site-header ${isScrolled ? 'is-scrolled' : ''} ${showLightTheme ? 'is-light-theme' : ''}`}
     >
       <a className="skip-link" href="#main-content">
         {experienceCopy.navigation.skip}

@@ -1,0 +1,141 @@
+/* These rules only affect the phone hero; the desktop stage keeps its own layout. */
+.mobile-storefront { display: none; }
+
+@media (max-width: 767px), (max-width: 1023px) and (max-height: 600px) and (pointer: coarse) {
+  .desktop-storefront { display: none; }
+  .mobile-storefront {
+    display: block;
+    color: #f5f2ea;
+    background: #0b0b0c;
+  }
+  .mobile-storefront-hero {
+    position: relative;
+    isolation: isolate;
+    display: flex;
+    flex-direction: column;
+    min-height: min(100svh, 940px);
+    padding: 106px 24px 18px;
+    overflow: clip;
+  }
+  .mobile-storefront-picture, .mobile-storefront-shade { position: absolute; inset: 0; z-index: -1; }
+  .mobile-storefront-picture img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 26% center;
+  }
+  .mobile-storefront-shade {
+    background: linear-gradient(180deg, #07101585 0%, transparent 25%, #0b0b0c0d 38%, #0b0b0cc9 61%, #0b0b0cfa 83%, #0b0b0c 100%);
+  }
+  .mobile-storefront-eyebrow {
+    margin: 0;
+    font-size: 10px;
+    line-height: 1.5;
+    font-weight: 600;
+    letter-spacing: .17em;
+    color: #f5f2eae8;
+  }
+  .mobile-storefront-eyebrow::before {
+    content: '';
+    display: inline-block;
+    width: 22px;
+    height: 1px;
+    margin: 0 9px 3px 0;
+    background: #e7c77a;
+  }
+  .mobile-storefront-copy { margin-top: auto; padding-top: clamp(210px, 32svh, 330px); }
+  .mobile-storefront-copy h1 {
+    margin: 0;
+    font-size: clamp(46px, 14.4vw, 82px);
+    font-weight: 600;
+    line-height: 1.02;
+    letter-spacing: -.06em;
+  }
+  .mobile-storefront-copy h1 span { display: block; }
+  .mobile-storefront-copy h1 .mobile-storefront-lead {
+    margin-bottom: 7px;
+    font-size: .59em;
+    line-height: 1.2;
+    font-weight: 500;
+    letter-spacing: -.04em;
+  }
+  .mobile-storefront-copy h1 span:last-child { color: #e7c77a; }
+  .mobile-storefront-description {
+    margin: 19px 0 25px;
+    color: #c8c3ba;
+    font-size: 14px;
+    line-height: 1.65;
+  }
+  .mobile-storefront-description span { display: block; }
+  .mobile-storefront-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; align-items: center; }
+  .mobile-storefront-quote, .mobile-storefront-work {
+    min-height: 52px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    text-decoration: none;
+    line-height: 1.4;
+  }
+  .mobile-storefront-quote { padding: 12px 16px; color: #171611; background: #e7c77a; border-radius: 10px; }
+  .mobile-storefront-work { padding: 12px 0 12px 4px; color: #f5f2ea; }
+  .mobile-storefront-actions svg { flex: 0 0 auto; }
+  .mobile-storefront-footnote {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-top: 19px;
+    border-top: 1px solid #f5f2ea21;
+    padding-top: 8px;
+    color: #b1aaa0;
+    font-size: 10px;
+    letter-spacing: .02em;
+  }
+  .mobile-storefront-footnote a { display: grid; place-items: center; min-width: 44px; min-height: 44px; color: #e7c77a; }
+  .mobile-storefront-overview { padding: 36px 24px 12px; border-top: 1px solid #34343870; }
+  .mobile-storefront-section-label { display: block; color: #c5aa75; font-size: 9px; line-height: 1.6; letter-spacing: .13em; margin: 0 0 14px; }
+  .mobile-storefront-overview h2 { font-size: clamp(27px, 7.8vw, 42px); line-height: 1.15; font-weight: 500; letter-spacing: -.035em; margin: 0; }
+  .mobile-storefront-overview h2 span { display: block; }
+  .mobile-storefront-overview-description { font-size: 13px; line-height: 1.75; color: #a8a5a0; max-width: 42ch; margin: 16px 0 24px; }
+  .mobile-storefront-categories { display: grid; grid-template-columns: auto auto; gap: 12px 18px; list-style: none; margin: 0 0 30px; padding: 0; }
+  .mobile-storefront-categories li { color: #ddd8ce; font-size: 12px; line-height: 1.6; }
+  .mobile-storefront-categories li::before { content: ''; display: inline-block; width: 4px; height: 4px; margin: 0 8px 2px 0; background: #d6a84f; border-radius: 50%; }
+  .mobile-storefront-services { border-top: 1px solid #343438; }
+  .mobile-storefront-services summary { display: flex; justify-content: space-between; align-items: center; gap: 16px; cursor: pointer; padding: 24px 0; list-style: none; }
+  .mobile-storefront-services summary::-webkit-details-marker { display: none; }
+  .mobile-storefront-services summary .mobile-storefront-section-label { margin-bottom: 8px; }
+  .mobile-storefront-services summary strong { font-size: 17px; font-weight: 500; letter-spacing: -.02em; }
+  .mobile-storefront-services[open] summary > svg { transform: rotate(45deg); }
+  .mobile-storefront-services ul { list-style: none; margin: 0; padding: 0; }
+  .mobile-storefront-services li { border-top: 1px solid #34343870; }
+  .mobile-storefront-services li a, .mobile-storefront-all-services { display: flex; align-items: center; justify-content: space-between; gap: 16px; min-height: 48px; padding: 10px 0; font-size: 13px; color: #ccc7bc; }
+  .mobile-storefront-all-services { color: #e7c77a; margin-top: 12px; }
+  .mobile-storefront :is(a, summary):focus-visible { outline: 2px solid #e7c77a; outline-offset: 5px; border-radius: 4px; }
+  .mobile-storefront :is(#arrival, #possibilities, #details) { scroll-margin-top: 92px; }
+}
+
+@media (max-width: 359px) {
+  .mobile-storefront-hero { padding-inline: 20px; }
+  .mobile-storefront-actions { gap: 12px; grid-template-columns: .95fr 1.05fr; }
+  .mobile-storefront-quote, .mobile-storefront-work { font-size: 12px; }
+  .mobile-storefront-quote { padding-inline: 12px; }
+  .mobile-storefront-overview { padding-inline: 20px; }
+  .mobile-storefront-categories { column-gap: 10px; }
+}
+
+@media (max-width: 767px) and (max-height: 700px) {
+  .mobile-storefront-copy { padding-top: 160px; }
+  .mobile-storefront-hero { padding-top: 96px; }
+}
+
+@media (max-width: 1023px) and (max-height: 600px) and (pointer: coarse) and (orientation: landscape) {
+  .mobile-storefront-hero { min-height: 620px; padding-inline: 6vw; }
+  .mobile-storefront-picture img { object-position: 30% 38%; }
+  .mobile-storefront-copy { max-width: 430px; padding-top: 120px; }
+  .mobile-storefront-copy h1 { font-size: 58px; }
+  .mobile-storefront-overview { padding-inline: 6vw; }
+}

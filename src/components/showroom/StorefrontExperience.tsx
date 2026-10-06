@@ -2,11 +2,11 @@
 import dynamic from 'next/dynamic';
 import Image from 'next/image';
 import Link from 'next/link';
-import { Component, useCallback, useEffect, useRef, useState, startTransition } from 'react';
+import { Component, useCallback, useEffect, useRef, useState, useSyncExternalStore, startTransition } from 'react';
 import { ArrowUpRight } from 'lucide-react';
 import { experienceCopy as copy, showroomConfig as tour, storefrontConfig as config } from '@/config/site';
-import { clamp } from '@/lib/showroom/timeline';
 import type { StorefrontState } from './StorefrontCanvas';
+import MobileStorefrontHero from './MobileStorefrontHero';
 
 const Scene=dynamic(()=>import('./StorefrontCanvas'),{ssr:false});
 const FrameSequence=dynamic(()=>import('./FrameSequenceCanvas'),{ssr:false});
@@ -25,26 +25,61 @@ interface StorefrontExperienceProps {
 }
 
 export default function StorefrontExperience({ onCapturePoster }: StorefrontExperienceProps = {}){
+  const isMobile = useSyncExternalStore(subscribeViewport, getMobileViewport, getServerViewport);
+  return <>
+    {isMobile !== false && <MobileStorefrontHero />}
+    {isMobile !== true && <div className="desktop-storefront"><DesktopStorefrontExperience onCapturePoster={onCapturePoster} enabled={isMobile === false} /></div>}
+  </>;
+}
+
+// CSS selects the correct server-rendered composition before hydration. The
+// animated renderer is only allowed to mount after a desktop viewport is known.
+const getMobileViewport = () => window.matchMedia(config.mobileHero.media).matches;
+const getServerViewport = (): boolean | null => null;
+function subscribeViewport(callback: () => void) {
+  const media = window.matchMedia(config.mobileHero.media);
+  media.addEventListener('change', callback);
+  return () => media.removeEventListener('change', callback);
+}
+
+function DesktopStorefrontExperience({ onCapturePoster, enabled }: StorefrontExperienceProps & { enabled: boolean }){
   const wrapper=useRef<HTMLDivElement>(null),stage=useRef<HTMLDivElement>(null),bar=useRef<HTMLDivElement>(null);
   const scene=useRef<StorefrontState>({progress:0,visible:true,ready:false,quality:'balanced',pointer:{x:0,y:0}});
   const [mode,setMode]=useState<'boot'|'live'|'still'>('boot');
   const [ready,setReady]=useState(false),[active,setActive]=useState(0),[category,setCategory]=useState(0),[service,setService]=useState(0);
   const [loadProgress, setLoadProgress] = useState(0);
-  const onReady=useCallback(()=>setReady(true),[]);
-  
+  const onReady=useCallback(()=>{
+    setLoadProgress(100);
+    setReady(true);
+    try { sessionStorage.setItem('om_visited', '1'); } catch {}
+  },[]);
+
+  // Fail-safe loader lifecycle: guarantees the loader never gets stuck at 100% on refresh
   useEffect(() => {
-    if (ready) {
+    if (mode === 'still' || ready) return;
+
+    let isRevisit = false;
+    try {
+      isRevisit = sessionStorage.getItem('om_visited') === '1';
+    } catch {}
+
+    const safetyLimit = isRevisit ? 400 : 1800;
+    const safetyTimer = setTimeout(() => {
       setLoadProgress(100);
-      return;
-    }
-    // Start progressing immediately to avoid getting stuck at 0%
+      setReady(true);
+    }, safetyLimit);
+
     const interval = setInterval(() => {
       setLoadProgress(prev => {
-        const step = (99 - prev) * 0.08;
-        return prev + Math.max(0.3, step);
+        const step = (99 - prev) * 0.12;
+        return prev + Math.max(0.4, step);
       });
-    }, 50);
-    return () => clearInterval(interval);
+    }, 40);
+
+    return () => {
+      clearTimeout(safetyTimer);
+      clearInterval(interval);
+    };
   }, [mode, ready]);
   const onFailure=useCallback(()=>{
     setMode('still');
@@ -68,25 +103,30 @@ export default function StorefrontExperience({ onCapturePoster }: StorefrontExpe
     startTransition(()=>setMode('live'));
   },[]);
   useEffect(()=>{
+    if(!enabled)return;
     const media=window.matchMedia('(prefers-reduced-motion: reduce)');
     const select=()=>media.matches?setMode('still'):enable();
     // Run immediately on client mount without artificial 180ms delay to eliminate start lag
     select();
     media.addEventListener('change',select);
     return()=>media.removeEventListener('change',select);
-  },[enable]);
+  },[enable,enabled]);
   useEffect(()=>{
-    if(mode==='still')return;
+    if(mode!=='live')return;
     const element=wrapper.current;if(!element)return;
     let frame=0;
     const update=()=>{
       frame=0;
       const bounds=element.getBoundingClientRect(),height=stage.current?.offsetHeight||window.innerHeight;
-      const p=clamp(-bounds.top/Math.max(1,element.offsetHeight-height));
+      const p=Math.min(1,Math.max(0,-bounds.top/Math.max(1,element.offsetHeight-height)));
       scene.current.progress=p;
       // Synchronously verify if element is in viewport to prevent stale visibility from throttled background observers
       const isVisible=bounds.bottom>0 && bounds.top<window.innerHeight;
       scene.current.visible=isVisible;
+      // If user refreshed while already scrolled down past the hero, dismiss loader immediately
+      if(!isVisible && !ready){
+        onReady();
+      }
       setActive(p>=config.chapterStarts[2]?2:p>=config.chapterStarts[1]?1:0);
       if(bar.current)bar.current.style.transform=`scaleX(${p})`;
       if(isVisible)wake();
@@ -170,7 +210,7 @@ export default function StorefrontExperience({ onCapturePoster }: StorefrontExpe
   };
   return <div ref={wrapper} className={`sf-journey ${mode==='still'?'sf-still':''}`}>
     {/* Global Loader Overlay */}
-    <div 
+    <div
       className={`fixed inset-0 z-[100] flex flex-col items-center justify-center bg-[#0B0B0C] transition-all duration-700 ease-in-out
         ${(!ready && mode !== 'still') ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}
     >
@@ -179,12 +219,12 @@ export default function StorefrontExperience({ onCapturePoster }: StorefrontExpe
         <div className="relative w-16 h-16 flex items-center justify-center">
           <svg className="absolute inset-0 w-full h-full -rotate-90" viewBox="0 0 100 100">
             <circle className="text-[#1D1D20] stroke-current" strokeWidth="2.5" cx="50" cy="50" r="46" fill="transparent" />
-            <circle 
-              className="text-[#D6A84F] stroke-current transition-all duration-200 ease-out" 
-              strokeWidth="2.5" 
-              strokeLinecap="round" 
-              cx="50" cy="50" r="46" 
-              fill="transparent" 
+            <circle
+              className="text-[#D6A84F] stroke-current transition-all duration-200 ease-out"
+              strokeWidth="2.5"
+              strokeLinecap="round"
+              cx="50" cy="50" r="46"
+              fill="transparent"
               strokeDasharray="289"
               strokeDashoffset={289 - (289 * Math.min(100, Math.round(loadProgress))) / 100}
             />
@@ -193,21 +233,22 @@ export default function StorefrontExperience({ onCapturePoster }: StorefrontExpe
             {Math.min(100, Math.round(loadProgress))}%
           </div>
         </div>
-        
+
         {/* Brand Name */}
         <div className="text-[#F5F2EA]/70 tracking-[0.3em] uppercase text-[9px] font-medium animate-pulse">
           OM Advertising
         </div>
       </div>
     </div>
-    
+
     <div ref={stage} className="sf-stage" data-ready={ready&&mode==='live'}>
       <div className="sf-visual" aria-hidden="true">
-        <picture><source media="(max-width: 767px) and (orientation: portrait)" srcSet={useFrames?(config.frameSequence.portraitPoster??config.frameSequence.poster??config.portraitPoster):config.portraitPoster}/><Image src={useFrames?(config.frameSequence.poster??config.poster):config.poster} alt="" fill loading="eager" fetchPriority="high" sizes="100vw" className={`sf-poster ${ready&&mode==='live'?'sf-loaded':''}`}/></picture>
+        <picture><source media={config.mobileHero.media} srcSet={config.mobileHero.image}/><Image src={useFrames?(config.frameSequence.poster??config.poster):config.poster} alt="" fill loading="eager" fetchPriority="high" sizes="100vw" className={`sf-poster ${ready&&mode==='live'?'sf-loaded':''}`}/></picture>
         {mode==='live'&&<SceneBoundary onFailure={onFailure}>{useFrames?<FrameSequence state={scene} onReady={onReady} onFailure={onFailure}/>:<Scene state={scene} onReady={onReady} onFailure={onFailure} onCapture={onCapturePoster}/>}</SceneBoundary>}
       </div>
       <div className={`sf-shade sf-shade-${active}`}/>
       <div className="sf-caption"><span>{tour.eyebrow}</span><span>{config.label}</span></div>
+
       <div className="sf-chapters">{tour.chapters.slice(0,3).map((chapter,index)=><section key={chapter.id} id={mode==='still'?chapter.id:undefined} className={`sf-chapter sf-chapter-${index} ${active===index?'sf-active':''}`} aria-hidden={mode==='still'?undefined:active!==index} inert={mode==='still'?undefined:active!==index}>
         <div className="sf-copy"><div className="sf-heading"><p className="eyebrow">{chapter.eyebrow}</p>{index===0?<h1>{config.headings[index].split('\n').map(line=><span key={line}>{line}</span>)}</h1>:<h2>{config.headings[index].split('\n').map(line=><span key={line}>{line}</span>)}</h2>}<p className="sf-description">{config.descriptions[index]}</p></div><div className="sf-interaction">{controls(index)}</div></div>
       </section>)}</div>

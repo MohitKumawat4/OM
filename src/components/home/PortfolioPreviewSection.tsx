@@ -3,49 +3,10 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useState } from 'react';
 import { ArrowRight } from 'lucide-react';
-import { siteConfig, storefrontConfig, experienceCopy } from '@/config/site';
+import { siteConfig, storefrontConfig, experienceCopy, portfolioSpotlights as spotlightItems } from '@/config/site';
 import Lightbox from '@/components/ui/Lightbox';
 import Reveal from './Reveal';
-
-// Curated spotlight items with concise titles & descriptions to keep imagery unobstructed
-const spotlightItems = [
-  {
-    ...siteConfig.portfolio[0],
-    shortTitle: 'Shri Mor Mukut',
-    shortCategory: 'Storefront',
-    shortDesc: 'Back-lit golden 3D acrylic letters with full ACP cladding.',
-  },
-  {
-    ...siteConfig.portfolio[1],
-    shortTitle: 'Titanium Gold &',
-    shortCategory: '3D Lettering',
-    shortDesc: 'Sculptural ampersand with warm edge halo LED illumination.',
-  },
-  {
-    ...siteConfig.portfolio[2],
-    shortTitle: 'Sunshine City',
-    shortCategory: 'Gateway Arch',
-    shortDesc: 'Large entrance archway with bronze & charcoal ACP cladding.',
-  },
-  {
-    ...siteConfig.portfolio[3],
-    shortTitle: 'Shri Ji Nivas',
-    shortCategory: 'Villa Signage',
-    shortDesc: 'Warm back-lit golden 3D lettering on architectural facade.',
-  },
-  {
-    ...siteConfig.portfolio[4],
-    shortTitle: 'Ashoka Enclave',
-    shortCategory: 'Entrance Portal',
-    shortDesc: 'Architectural gateway with teak woodgrain and charcoal panels.',
-  },
-  {
-    ...siteConfig.portfolio[5],
-    shortTitle: 'Chomu Workshop',
-    shortCategory: 'Fabrication Hub',
-    shortDesc: 'In-house CNC precision machining and eco-solvent printing.',
-  },
-];
+import MobilePortfolioShowcase from './MobilePortfolioShowcase';
 
 /**
  * PortfolioPreviewSection (Chapter 06: Work & Inspiration)
@@ -74,9 +35,9 @@ export default function PortfolioPreviewSection() {
   }));
 
   return (
-    <section id="work" className="home-section home-work pt-14 md:pt-18 pb-10 md:pb-14 bg-[#FAF8F5] text-[#2C2C2C] overflow-hidden">
+    <section id="work" className="portfolio-preview home-section home-work pt-14 md:pt-18 pb-10 md:pb-14 bg-[#FAF8F5] text-[#2C2C2C] overflow-hidden">
       {/* Centered Editorial Header with soft Fraunces serif */}
-      <Reveal className="text-center mb-8 md:mb-10 max-w-2xl mx-auto px-4">
+      <Reveal className="portfolio-preview-heading text-center mb-8 md:mb-10 max-w-2xl mx-auto px-4">
         <span className="text-[#8C7A6B] font-outfit font-medium uppercase tracking-[0.22em] text-[10px] mb-2.5 block">
           {copy.eyebrow}
         </span>
@@ -200,43 +161,10 @@ export default function PortfolioPreviewSection() {
         </div>
       </Reveal>
 
-      {/* Mobile Horizontal Swipe Deck (< md) */}
-      <Reveal className="md:hidden w-full px-4">
-        <div className="flex overflow-x-auto gap-3.5 pb-4 pt-2 snap-x snap-mandatory scrollbar-none -mx-4 px-4">
-          {spotlightItems.map((item, index) => (
-            <div
-              key={item.id}
-              onClick={() => {
-                setActiveIndex(index);
-                setIsOpen(true);
-              }}
-              className="flex-shrink-0 w-[84vw] h-[350px] rounded-2xl overflow-hidden relative snap-start border border-[#E6E1D6] shadow-lg bg-white"
-            >
-              <Image
-                src={item.image}
-                alt={item.title}
-                fill
-                sizes="84vw"
-                className={`object-cover ${item.id === 'p-1' ? 'scale-[1.2] origin-top' : ''}`}
-              />
-              <div className="absolute inset-x-0 bottom-0 h-[45%] bg-gradient-to-t from-black/85 via-black/30 to-transparent flex flex-col justify-end p-5">
-                <span className="self-start bg-white/95 text-[#2C2C2C] text-[9px] font-outfit font-medium uppercase tracking-widest px-2.5 py-0.5 rounded-full shadow-sm mb-1.5">
-                  {item.shortCategory}
-                </span>
-                <h3 className="text-xl font-fraunces font-light text-white tracking-wide leading-snug">
-                  {item.shortTitle}
-                </h3>
-                <p className="text-[11px] text-white/75 font-outfit font-light line-clamp-2 mt-1">
-                  {item.shortDesc}
-                </p>
-              </div>
-            </div>
-          ))}
-        </div>
-      </Reveal>
+      <MobilePortfolioShowcase />
 
       {/* Centered Bottom Link */}
-      <div className="mt-8 md:mt-10 text-center">
+      <div className="portfolio-preview-footer mt-8 md:mt-10 text-center">
         <Link
           href="/work"
           className="inline-flex items-center gap-2.5 text-[#2C2C2C] font-outfit font-medium hover:text-[#A87B2E] transition-all duration-300 group text-xs sm:text-sm"
@@ -261,6 +189,5 @@ export default function PortfolioPreviewSection() {
     </section>
   );
 }
-
 
 
